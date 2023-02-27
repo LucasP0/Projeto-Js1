@@ -1,0 +1,16 @@
+index.js --> responsavel por chamar todas as camadas
+
+services:
+  --> toda logica de negocio
+  --> toda chamada externa (API, arquivos, banco de dados)
+
+views:
+  -->toda interação com o DOM (com o HTML, com a pagina)
+
+controllers: 
+  --> é a intermediaria entre services e views
+
+factories
+  --> a factory é quem importa as depedencias 
+  --> e cria o objeto final para fazermos as chamadas requeridas
+workers
