@@ -1,4 +1,8 @@
-index.js --> responsavel por chamar todas as camadas
+
+workers:
+  --> toda logica pesada (que envolva CPU)
+  --> tudo que pode travar a tela (for loop, machine learning, AI, processamento de web CAM)
+  --> ele chama as regras de negocio da service
 
 services:
   --> toda logica de negocio
@@ -13,4 +17,6 @@ controllers:
 factories
   --> a factory é quem importa as depedencias 
   --> e cria o objeto final para fazermos as chamadas requeridas
-workers
+  --> retorna a função que inicializa o fluxo daquele component (init)
+
+index.js --> responsavel por chamar todas as camadas
