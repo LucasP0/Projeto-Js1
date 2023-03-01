@@ -1,8 +1,9 @@
 function supportsWorkerType() {
-  let supports = false
+  let supports = false 
   const tester = {
-    get type() { supports: true }
+    get type() { supports = true}
   }
+
   try {
     new Worker('blob://', tester).terminate()
   } finally {
@@ -10,6 +11,19 @@ function supportsWorkerType() {
   }
 }
 
+function prepareRunChecker({ timerDelay }) {
+  let lastEvent = Date.now()
+  return {
+    shouldRun() {
+      const result = (Date.now() - lastEvent) > timerDelay
+      if(result) lastEvent = Date.now()
+
+      return result
+    }
+  }
+}
+
 export {
-  supportsWorkerType
+  supportsWorkerType,
+  prepareRunChecker
 }

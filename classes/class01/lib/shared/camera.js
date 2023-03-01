@@ -4,9 +4,9 @@ export default class Camera {
   }
 
   static async init() {
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
       throw new Error(
-        `Browser API navigator.mediaDevices.getUserMedia not avaliable`
+        `Browser API navigator.mediaDevices.getUserMedia not available`
       )
     }
     const videoConfig = {
@@ -22,18 +22,18 @@ export default class Camera {
     const stream = await navigator.mediaDevices.getUserMedia(videoConfig)
     const camera = new Camera()
     camera.video.srcObject = stream
+    // debug reasons!
+    // camera.video.height = 240
+    // camera.video.width = 320
+    // document.body.append(camera.video)
 
-    camera.video.height = 240
-    camera.video.width = 320
-    document.body.append(camera.video)
-
-    // agarda pela camera!
+    // aguarda pela camera!
     await new Promise((resolve) => {
       camera.video.onloadedmetadata = () => {
         resolve(camera.video)
       }
-    }) 
- 
+    })
+
     camera.video.play()
 
     return camera
