@@ -22,7 +22,9 @@ export default class HandGestureService {
 
   async * detectGestures(predictions) {
     for(const hand of predictions) {
+      if (!hand.keypoints3D) continue
       const gestures = await this.estimate(hand.keypoints3D)
+      console.log({ gesture })
     }
   }
 
@@ -38,7 +40,7 @@ export default class HandGestureService {
   }
 
   async initializeDetector() {
-    if(this.#detector) return this.#detector
+    if (this.#detector) return this.#detector
 
     const detectorConfig = {
       runtime: 'mediapipe', // or 'tfjs',
