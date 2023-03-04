@@ -17,14 +17,22 @@ export default class HandGestureService {
       // porcentagem de confiaça
       9
     )
-    console.log({ predictions })
+    return predictions.gestures 
   }
 
   async * detectGestures(predictions) {
-    for(const hand of predictions) {
+    for (const hand of predictions) {
       if (!hand.keypoints3D) continue
+
       const gestures = await this.estimate(hand.keypoints3D)
-      console.log({ gesture })
+      if (!gestures.length) continue
+
+      const result = gestures.reduce(
+        (previous, current) => (previous.score > current.score) ? previous : current
+      )
+      const { x, y } = hand.keypoints.find(keypoint => keypoint.name === 'index_finger_tip')
+      yield { event: result.name, x, y}
+      console.log('dectected', gestureStrings[result.name])
     }
   }
 
